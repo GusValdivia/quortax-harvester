@@ -1,5 +1,8 @@
 FROM python:3.11-slim
 
+# Cache bust: 2026-03-17
+ARG CACHEBUST=1
+
 # System deps for theHarvester
 RUN apt-get update && apt-get install -y \
     git \
@@ -13,7 +16,7 @@ WORKDIR /app
 RUN pip install --no-cache-dir git+https://github.com/laramies/theHarvester.git@master
 
 # Install FastAPI + uvicorn
-RUN pip install --no-cache-dir fastapi==0.115.0 uvicorn[standard]==0.30.6 pydantic==2.9.2
+RUN pip install --no-cache-dir fastapi==0.115.0 "uvicorn[standard]==0.30.6" pydantic==2.9.2
 
 # Copy app
 COPY main.py .
