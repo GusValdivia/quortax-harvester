@@ -9,9 +9,11 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Install Python deps
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install theHarvester from GitHub (PyPI package is just a placeholder)
+RUN pip install --no-cache-dir git+https://github.com/laramies/theHarvester.git@master
+
+# Install FastAPI + uvicorn
+RUN pip install --no-cache-dir fastapi==0.115.0 uvicorn[standard]==0.30.6 pydantic==2.9.2
 
 # Copy app
 COPY main.py .
